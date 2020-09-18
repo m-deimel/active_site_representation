@@ -1,0 +1,169 @@
+#
+# Complex model
+#
+
+A_uc = 6.582 * 2.686 # Ang**2
+
+rxn_expressions = [
+    'H2_g + 2*_h -> 2H_h',
+    '*_s + CO_g -> CO_s',
+    '*_t + CO_g -> CO_t',
+    'CO_s + H_h + *_f + *_t + *_k <-> *_s + *_h + C-OH_f + *_t + *_k -> *_s + *_h + C_f + OH_t + *_k',
+    'CO_t + H_h + *_f + *_k <-> *_t + *_h + C-OH_f + *_k -> OH_t + *_h + C_f + *_k',
+    'C_f + H_h <-> C-H_f + *_h -> CH_f + *_h',
+    'C_s + H_h <-> C-H_s + *_h -> CH_s + *_h',
+    'C_t + H_h <-> C-H_t + *_h -> CH_t + *_h',
+    'CH_f + H_h + *_t + *_k <-> CH-H_f + *_h + *_t + *_k -> *_f + *_h + CH2_t + *_k',
+    'CH_f + H_h + *_s <-> CH-H_f + *_h + *_s -> *_f + *_h + CH2_s',
+    'CH_s + H_h <-> CH-H_s + *_h -> CH2_s + *_h',
+    'CH_t + H_h <-> CH-H_t + *_h -> CH2_t + *_h',
+    'CH2_s + H_h <-> CH2-H_s + *_h -> CH3_s + *_h',
+    'CH2_t + H_h <-> CH2-H_t + *_h -> CH3_t + *_h',
+    'CH3_s + H_h <-> CH3-H_s + *_h -> CH4_g + *_s + *_h',
+    'CH3_t + H_h <-> CH3-H_t + *_h -> CH4_g + *_t + *_h',
+    'OH_s + H_h <-> H-OH_s + *_h -> H2O_g + *_s + *_h',
+    'OH_t + H_h <-> H-OH_t + *_h -> H2O_g + *_t + *_h',
+    '2OH_s <-> H2O-O_s + *_s -> H2O_g + O_s + *_s',
+    '2OH_t <-> H2O-O_t + *_t -> H2O_g + O_t + *_t',
+    'OH_s + OH_t <-> H2O-O-_s + *_t -> H2O_g + O_s + *_t',
+    'OH_t + OH_s <-> H2O-O-_t + *_s -> H2O_g + O_t + *_s',
+    'O_s + H_h <-> O-H_s + *_h -> OH_s + *_h ',
+    'O_t + H_h <-> O-H_t + *_h -> OH_t + *_h ',
+
+    'CO_s + *_t + *_k <-> CO-_s + *_t + *_k -> *_s + CO_t + *_k',
+    'C_f + *_s <-> C-_f + *_s -> *_f + C_s',
+    'C_s + *_t + *_k <-> C-_s + *_t + *_k -> *_s + C_t + *_k',
+    'C_t + *_f + *_k <-> C-_t + *_f + *_k -> *_t + C_f + *_k',
+    'CH_f + *_s <-> CH-_f + *_s -> *_f + CH_s',
+    'CH_s + *_t + *_k <-> CH-_s + *_t + *_k -> *_s + CH_t + *_k',
+    'CH_t + *_f + *_k <-> CH-_t + *_f + *_k -> *_t + CH_f + *_k',
+    'CH2_s + *_t + *_k <-> CH2-_s + *_t + *_k -> *_s + CH2_t + *_k',
+    'CH3_s + *_t + *_k <-> CH3-_s + *_t + *_k -> *_s + CH3_t + *_k',
+    'OH_s + *_t + *_k <-> OH-_s + *_t + *_k -> *_s + OH_t + *_k',
+    'O_s + *_t + *_k <-> O-_s + *_t + *_k -> *_s + O_t + *_k',
+    ]
+
+prefactor_list = [
+    {'type': 'non-activated', 'A_site': A_uc},
+    {'type': 'non-activated', 'A_site': A_uc/2.},
+    {'type': 'non-activated', 'A_site': A_uc/2.},
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    {'type': 'activated', 'A_site': A_uc/2.},
+    {'type': 'activated', 'A_site': A_uc/2.},
+    {'type': 'activated', 'A_site': A_uc/4.},
+    {'type': 'activated', 'A_site': A_uc/4.},
+    {'type': 'activated', 'A_site': A_uc/8.},
+    {'type': 'activated', 'A_site': A_uc/8.},
+    {'type': 'activated', 'A_site': A_uc/8.},
+    {'type': 'activated', 'A_site': A_uc/8.},
+    None,
+    None,
+
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    ]
+
+
+surface_names = ['CoPt']
+
+scaling_constraint_dict = {
+    'C-OH_f':'final_state:[0.865,1.031]',
+    'C-H_f':'initial_state:[0.860,1.165]',
+    'C-H_s':'initial_state:[0.860,1.165]',
+    'C-H_t':'initial_state:[0.860,1.165]',
+    'CH-H_f':'initial_state:[0.863,0.914]',
+    'CH-H_s':'initial_state:[0.863,0.914]',
+    'CH-H_t':'initial_state:[0.863,0.914]',
+    'CH2-H_s':'initial_state:[0.840,0.591]',
+    'CH2-H_t':'initial_state:[0.840,0.591]',
+    'CH3-H_s':'initial_state:[0.688,0.763]',
+    'CH3-H_t':'initial_state:[0.688,0.763]',
+    'H-OH_s':'initial_state:[0.554,1.102]',
+    'H-OH_t':'initial_state:[0.554,1.102]',
+    'H2O-O_s':'BEP:[1.00,0.00]',
+    'H2O-O_t':'BEP:[1.00,0.00]',
+    'H2O-O-_s':'BEP:[1.00,0.00]',
+    'H2O-O-_t':'BEP:[1.00,0.00]',
+    'O-H_s':'initial_state:[0.690,1.050]',
+    'O-H_t':'initial_state:[0.690,1.050]',
+
+    'CO-_s':'BEP:[0.500,0.110]',
+    'C-_f':'BEP:[0.500,0.480]',
+    'C-_s':'BEP:[0.500,0.480]',
+    'C-_t':'BEP:[0.500,0.480]',
+    'CH-_f':'BEP:[0.500,0.370]',
+    'CH-_s':'BEP:[0.500,0.370]',
+    'CH-_t':'BEP:[0.500,0.370]',
+    'CH2-_s':'BEP:[0.500,0.610]',
+    'CH3-_s':'BEP:[0.500,0.510]',
+    'OH-_s':'BEP:[0.500,0.440]',
+    'O-_s':'BEP:[0.500,0.820]',
+    }
+
+descriptor_names = ['temperature','logPressure']
+
+descriptor_ranges = [[223,523],[-0.1,0.1]]
+
+resolution = [5,3]
+
+species_definitions = {}
+species_definitions['CO_g'] = {'concentration':0.01}
+species_definitions['H2_g'] = {'concentration':0.97}
+species_definitions['CH4_g'] = {'concentration':0.01}
+species_definitions['H2O_g'] = {'concentration':0.01}
+
+species_definitions['f'] = {'site_names': ['f'], 'total':1}
+species_definitions['s'] = {'site_names': ['s'], 'total':1}
+species_definitions['t'] = {'site_names': ['t'], 'total':1}
+species_definitions['h'] = {'site_names': ['t'], 'total':1}
+species_definitions['k'] = {'site_names': ['k'], 'total':2}
+
+data_file = 'CH4.pkl'
+
+#
+# Parser parameters
+#
+
+input_file = 'energies.txt'
+
+#
+# Scaler parameters
+#
+
+scaler = 'ThermodynamicScaler'
+
+gas_thermo_mode = 'ideal_gas'
+
+adsorbate_thermo_mode = 'harmonic_adsorbate'
+
+#
+# Solver parameters
+#
+
+decimal_precision = 100
+
+tolerance = 1e-50
+
+max_rootfinding_iterations = 10
+
+max_bisections = 6
+

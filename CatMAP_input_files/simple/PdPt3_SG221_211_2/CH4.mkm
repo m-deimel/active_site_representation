@@ -1,0 +1,77 @@
+#
+# Simple model
+#
+
+rxn_expressions = [
+    'H2_g + 2*_h -> 2H_h',
+    '*_s + CO_g -> CO_s',
+    'CO_s + *_f + H_h <-> C-OH_f + *_s + *_h -> C_f + OH_s + *_h',
+    'C_f + H_h <-> H-C_f + *_h -> CH_f + *_h',
+    'CH_f + H_h + *_t <-> H-CH_f + *_t + *_h -> CH2_t + *_h + *_f',
+    'CH2_t + H_h <-> H-CH2_t + *_h -> CH3_t + *_h',
+    'CH3_t + H_h <-> H-CH3_t + *_h -> CH4_g + *_t + *_h',
+    'O_s + H_h <-> O-H_s + *_h -> OH_s + *_h',
+    'OH_s + H_h <-> H-OH_s + *_h -> H2O_g + *_s + *_h',
+    '2OH_s <-> O-H2O_s + *_s -> H2O_g + O_s + *_s',
+    ]
+
+surface_names = ['PdPt3']
+
+scaling_constraint_dict = {
+    'C-OH_f':'final_state:[0.865,1.031]',
+    'H-C_f':'initial_state:[0.860,1.165]',
+    'H-CH_f':'initial_state:[0.863,0.914]',
+    'H-CH2_t':'initial_state:[0.840,0.591]',
+    'H-CH3_t':'initial_state:[0.688,0.763]',
+    'O-H_s':'initial_state:[0.690,1.050]',
+    'O-H2O_s':'BEP:[1.00,0.00]',
+    'H-OH_s':'initial_state:[0.554,1.102]',
+    }
+
+descriptor_names = ['temperature','logPressure']
+
+descriptor_ranges = [[1423,223],[-0.1,0.1]]
+
+resolution = [5,3]
+
+species_definitions = {}
+species_definitions['CO_g'] = {'concentration':0.01}
+species_definitions['H2_g'] = {'concentration':0.97}
+species_definitions['CH4_g'] = {'concentration':0.01}
+species_definitions['H2O_g'] = {'concentration':0.01}
+
+species_definitions['f'] = {'site_names': ['f'], 'total':1}
+species_definitions['s'] = {'site_names': ['s'], 'total':1}
+species_definitions['t'] = {'site_names': ['t'], 'total':1}
+species_definitions['h'] = {'site_names': ['t'], 'total':1}
+
+data_file = 'CH4.pkl'
+
+#
+# Parser parameters
+#
+
+input_file = 'energies.txt'
+
+#
+# Scaler parameters
+#
+
+scaler = 'ThermodynamicScaler'
+
+gas_thermo_mode = 'ideal_gas'
+
+adsorbate_thermo_mode = 'harmonic_adsorbate'
+
+#
+# Solver parameters
+#
+
+decimal_precision = 100
+
+tolerance = 1e-50
+
+max_rootfinding_iterations = 10
+
+max_bisections = 3
+
